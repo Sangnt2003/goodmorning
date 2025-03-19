@@ -38,22 +38,97 @@
         box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         background: linear-gradient(45deg, #ff8e8e, #ff6b6b);
       }
+
+      .message {
+        font-size: 2.5em;
+        z-index: 1;
+        text-align: center;
+        max-width: 800px;
+        line-height: 1.6;
+        color: #c08fc6;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+        font-weight: 700;
+        padding: 20px 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .button {
-        padding: 15px 30px;
-        background: #64b5f6;
+        padding: 18px 35px;
+        background: linear-gradient(45deg, #4ecdc4, #45b7af, #3ca29b);
         color: white;
         border: none;
         border-radius: 30px;
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: 600;
         cursor: pointer;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1),
+          inset 0 2px 2px rgba(255, 255, 255, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        position: relative;
+        overflow: hidden;
       }
 
       .button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-        background: #42a5f5;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+          0 10px 10px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(45deg, #45b7af, #3ca29b, #4ecdc4);
+      }
+
+      .button:active {
+        transform: translateY(2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .button::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to bottom right,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0)
+        );
+        transform: rotate(45deg);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .button:hover::after {
+        opacity: 0.1;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #4ecdc4,
+            0 0 20px #4ecdc4;
+        }
+        to {
+          text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4ecdc4,
+            0 0 40px #4ecdc4;
+        }
       }
 
       .morning-animation {
@@ -130,22 +205,6 @@
         animation: fadeInDown 2s ease 1s forwards;
         font-weight: bold;
         letter-spacing: 2px;
-      }
-
-      .message {
-        font-size: 1.8em;
-        color: #fff;
-        z-index: 1;
-        text-align: center;
-        max-width: 80%;
-        line-height: 1.8;
-        opacity: 0;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
-          0 0 15px rgba(255, 255, 255, 0.3);
-        transform: translateY(20px);
-        animation: fadeInUp 2s ease 2s forwards;
-        font-weight: 500;
-        letter-spacing: 1px;
       }
 
       .birds {
@@ -258,13 +317,29 @@
         position: absolute;
         bottom: 20px;
         padding: 10px 20px;
-        background: rgba(100, 181, 246, 0.5);
+        background: linear-gradient(45deg, #4ecdc4, #45b7af, #3ca29b);
         color: white;
         border: none;
         border-radius: 20px;
         cursor: pointer;
         opacity: 0;
         animation: fadeIn 2s ease 4s forwards;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .restart:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+          0 10px 10px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(45deg, #45b7af, #3ca29b, #4ecdc4);
+      }
+
+      .restart:active {
+        transform: translateY(2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
       }
       @keyframes fadeInDown {
         from {
@@ -373,7 +448,9 @@
       <div class="light-beam"></div>
 
       <h1 class="greeting">Chào Buổi Sáng!</h1>
-      <p class="message">Chúc bạn một ngày vui vẻ và tràng đầy năng lượng</p>
+      <p class="message">
+        Chúc bạn Sương một ngày vui vẻ và tràng đầy năng lượng🔥
+      </p>
       <a
         href="https://sangnt2003.github.io/heybro/index"
         class="social-link"
