@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chào Buổi Sáng</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to right, #0c2346, #1a3a5f);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        transition: background 3s ease;
+      }
+      .social-link {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .social-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        background: linear-gradient(45deg, #ff8e8e, #ff6b6b);
+      }
+      .button {
+        padding: 15px 30px;
+        background: #64b5f6;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        background: #42a5f5;
+      }
+
+      .morning-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+
+      .show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .sun {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, #ffeb3b, #ff9800);
+        border-radius: 50%;
+        box-shadow: 0 0 60px #ff9800;
+        margin-bottom: 30px;
+        animation: rise 3s ease-out;
+        position: relative;
+        z-index: 5;
+      }
+
+      .sun-rays {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        animation: fadeIn 3s ease 1s forwards;
+        pointer-events: none;
+      }
+
+      .ray {
+        position: absolute;
+        background: linear-gradient(
+          to right,
+          rgba(255, 235, 59, 0),
+          rgba(255, 235, 59, 0.5),
+          rgba(255, 235, 59, 0)
+        );
+        height: 2px;
+        width: 200px;
+        top: 50%;
+        left: 50%;
+        transform-origin: left center;
+        animation: rotate 20s linear infinite;
+      }
+
+      .greeting {
+        font-size: 4em;
+        background: linear-gradient(45deg, #ffd700, #ffa500, #ff8c00);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+          0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 215, 0, 0.3);
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInDown 2s ease 1s forwards;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+      .message {
+        font-size: 1.8em;
+        color: #fff;
+        z-index: 1;
+        text-align: center;
+        max-width: 80%;
+        line-height: 1.8;
+        opacity: 0;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
+          0 0 15px rgba(255, 255, 255, 0.3);
+        transform: translateY(20px);
+        animation: fadeInUp 2s ease 2s forwards;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      .birds {
+        position: absolute;
+        top: 150px;
+        opacity: 0;
+        animation: flyIn 4s ease 3s forwards;
+      }
+
+      .birds div {
+        position: absolute;
+        width: 12px;
+        height: 6px;
+        background: #333;
+        transform: rotate(45deg);
+        border-radius: 5px;
+      }
+
+      .birds div:before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        width: 12px;
+        height: 6px;
+        background: #333;
+        border-radius: 5px;
+        transform: rotate(-90deg);
+      }
+
+      .cloud {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        filter: blur(3px);
+      }
+
+      .grass {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(to top, #2e7d32, #4caf50);
+        opacity: 0;
+        animation: fadeIn 2s ease 3s forwards;
+      }
+
+      .flower {
+        position: absolute;
+        bottom: 80px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        opacity: 0;
+        animation: growFlower 3s ease 4s forwards;
+      }
+
+      .tree {
+        position: absolute;
+        bottom: 80px;
+        opacity: 0;
+        animation: growTree 4s ease 2s forwards;
+      }
+
+      .tree-trunk {
+        width: 30px;
+        height: 100px;
+        background: linear-gradient(to right, #5d4037, #795548, #5d4037);
+        border-radius: 5px;
+      }
+
+      .tree-leaves {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, #66bb6a, #388e3c);
+        border-radius: 50%;
+        position: absolute;
+        bottom: 80px;
+        left: -45px;
+        z-index: 2;
+      }
+
+      .light-beam {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 50% 30%,
+          rgba(255, 255, 255, 0.2),
+          transparent 70%
+        );
+        opacity: 0;
+        animation: fadeIn 4s ease 3s forwards;
+        pointer-events: none;
+      }
+
+      .dust {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        opacity: 0;
+        animation: float 8s ease infinite;
+      }
+
+      .restart {
+        position: absolute;
+        bottom: 20px;
+        padding: 10px 20px;
+        background: rgba(100, 181, 246, 0.5);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        opacity: 0;
+        animation: fadeIn 2s ease 4s forwards;
+      }
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes rise {
+        0% {
+          transform: translateY(100px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes flyIn {
+        0% {
+          transform: translateX(-200px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes growFlower {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes growTree {
+        0% {
+          transform: scale(0.5) translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        80% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-100px) translateX(20px);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="button" id="morningButton">Chào Buổi Sáng</button>
+
+    <div class="morning-animation" id="morningAnimation">
+      <div class="sun"></div>
+      <div class="sun-rays" id="sunRays"></div>
+      <div class="light-beam"></div>
+
+      <h1 class="greeting">Chào Buổi Sáng!</h1>
+      <p class="message">Chúc bạn một ngày vui vẻ và tràng đầy năng lượng</p>
+      <a
+        href="https://sangnt2003.github.io/heybro/index"
+        class="social-link"
+        target="_blank"
+      >
+        💬 Chat với mình
+      </a>
+      <div class="birds">
+        <div style="top: 0px; left: 20px"></div>
+        <div style="top: -10px; left: 40px"></div>
+        <div style="top: 10px; left: 60px"></div>
+        <div style="top: -5px; left: 80px"></div>
+        <div style="top: 5px; left: 100px"></div>
+      </div>
+
+      <div class="grass"></div>
+
+      <button class="restart" id="restartButton">Quay Lại</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const button = document.getElementById("morningButton");
+        const animation = document.getElementById("morningAnimation");
+        const restartButton = document.getElementById("restartButton");
+        const sunRays = document.getElementById("sunRays");
+
+        // Tạo tia nắng
+        function createSunRays() {
+          for (let i = 0; i < 12; i++) {
+            const ray = document.createElement("div");
+            ray.classList.add("ray");
+            ray.style.transform = `rotate(${i * 30}deg)`;
+            ray.style.animationDelay = `${i * 0.2}s`;
+            sunRays.appendChild(ray);
+          }
+        }
+
+        // Tạo mây ngẫu nhiên
+        function createClouds() {
+          for (let i = 0; i < 8; i++) {
+            const cloud = document.createElement("div");
+            cloud.classList.add("cloud");
+
+            const size = Math.random() * 60 + 60;
+            const left = Math.random() * window.innerWidth;
+            const top = Math.random() * 200;
+            const delay = Math.random() * 20;
+
+            cloud.style.width = size + "px";
+            cloud.style.height = size / 2 + "px";
+            cloud.style.left = left + "px";
+            cloud.style.top = top + "px";
+            cloud.style.opacity = "0";
+            cloud.style.animation = `fadeIn 3s ease ${delay}s forwards`;
+
+            animation.appendChild(cloud);
+          }
+        }
+
+        // Tạo hoa ngẫu nhiên
+        function createFlowers() {
+          const colors = [
+            "#ffeb3b",
+            "#ff9800",
+            "#f44336",
+            "#e91e63",
+            "#9c27b0",
+            "#673ab7",
+          ];
+          for (let i = 0; i < 15; i++) {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+
+            const left = Math.random() * window.innerWidth;
+            const delay = Math.random() * 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            flower.style.left = left + "px";
+            flower.style.backgroundColor = color;
+            flower.style.animationDelay = delay + "s";
+
+            animation.appendChild(flower);
+          }
+        }
+
+        // Tạo cây ngẫu nhiên
+        function createTrees() {
+          const positions = [0.1, 0.2, 0.35, 0.65, 0.8, 0.9];
+
+          for (let i = 0; i < positions.length; i++) {
+            const tree = document.createElement("div");
+            tree.classList.add("tree");
+
+            const trunk = document.createElement("div");
+            trunk.classList.add("tree-trunk");
+
+            const leaves = document.createElement("div");
+            leaves.classList.add("tree-leaves");
+
+            // Thay đổi kích thước ngẫu nhiên
+            const scale = 0.7 + Math.random() * 0.6;
+            trunk.style.transform = `scale(${scale})`;
+            leaves.style.transform = `scale(${scale})`;
+
+            // Thay đổi màu sắc lá cây
+            const greenIntensity = 0.8 + Math.random() * 0.4;
+            leaves.style.filter = `brightness(${greenIntensity})`;
+
+            tree.appendChild(trunk);
+            tree.appendChild(leaves);
+
+            const left = positions[i] * window.innerWidth;
+            const delay = Math.random() * 2;
+
+            tree.style.left = left + "px";
+            tree.style.animationDelay = delay + "s";
+
+            animation.appendChild(tree);
+          }
+        }
+
+        // Tạo hạt bụi ánh sáng
+        function createDust() {
+          for (let i = 0; i < 30; i++) {
+            const dust = document.createElement("div");
+            dust.classList.add("dust");
+
+            const top = Math.random() * window.innerHeight * 0.7;
+            const left = Math.random() * window.innerWidth;
+            const delay = Math.random() * 10;
+            const duration = 5 + Math.random() * 10;
+            const size = 1 + Math.random() * 3;
+
+            dust.style.top = top + "px";
+            dust.style.left = left + "px";
+            dust.style.width = size + "px";
+            dust.style.height = size + "px";
+            dust.style.animationDelay = delay + "s";
+            dust.style.animationDuration = duration + "s";
+
+            animation.appendChild(dust);
+          }
+        }
+
+        button.addEventListener("click", function () {
+          button.style.display = "none";
+          animation.classList.add("show");
+          createSunRays();
+          createClouds();
+          createFlowers();
+          createTrees();
+          createDust();
+
+          // Thay đổi background thành gradient buổi sáng thiên nhiên
+          document.body.style.background =
+            "linear-gradient(to bottom, #66a6ff, #89d4ff, #b6e6ff)";
+
+          // Thêm hiệu ứng âm thanh chim hót
+          const audio = new Audio(
+            "https://cdnjs.cloudflare.com/ajax/libs/sound-effects/birdsinging.mp3"
+          );
+          audio.volume = 0.3;
+          audio
+            .play()
+            .catch((e) => console.log("Không thể phát âm thanh: ", e));
+        });
+
+        restartButton.addEventListener("click", function () {
+          animation.classList.remove("show");
+          document.body.style.background =
+            "linear-gradient(to right, #0c2346, #1a3a5f)";
+          button.style.display = "block";
+
+          // Xóa các phần tử tạo ra
+          document
+            .querySelectorAll(".cloud, .flower, .tree, .dust, .ray")
+            .forEach((element) => {
+              element.remove();
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
