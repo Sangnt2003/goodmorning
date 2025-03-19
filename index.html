@@ -40,7 +40,7 @@
       }
 
       .message {
-        font-size: 2.1em;
+        font-size: 2.5em;
         z-index: 1;
         text-align: center;
         max-width: 800px;
@@ -51,7 +51,7 @@
         transform: translateY(30px);
         animation: fadeInUp 1.5s ease forwards;
         font-weight: 700;
-        padding: 0 40px;
+        padding: 20px 40px;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -193,7 +193,6 @@
 
       .greeting {
         font-size: 4em;
-        z-index: 1;
         background: linear-gradient(45deg, #ffd700, #ffa500, #ff8c00);
         -webkit-background-clip: text;
         background-clip: text;
@@ -316,10 +315,10 @@
 
       .restart {
         position: absolute;
-        top: 21px;
+        top: 20px;
         left: 20px;
         padding: 10px 20px;
-        background: linear-gradient(45deg, #4ecdc4, #a8d3d0, #3ca29b);
+        background: linear-gradient(45deg, #4ecdc4, #45b7af, #3ca29b);
         color: white;
         border: none;
         border-radius: 20px;
@@ -451,14 +450,14 @@
 
       <h1 class="greeting">Chào Buổi Sáng!</h1>
       <p class="message">
-        Chúc bạn Sương một ngày vui vẻ và tràng đầy năng lượng🔥
+        Chúc bạn Sương một ngày vui vẻ và tràng đầy năng lượng nha🔥
       </p>
       <a
         href="https://sangnt2003.github.io/heybro/index"
         class="social-link"
         target="_blank"
       >
-        💬 Chat với mình
+        💬 Chat với Shang
       </a>
       <div class="birds">
         <div style="top: 0px; left: 20px"></div>
@@ -480,7 +479,7 @@
         const restartButton = document.getElementById("restartButton");
         const sunRays = document.getElementById("sunRays");
 
-        // Tạo tia nắng
+        // Tạo tia nắng.
         function createSunRays() {
           for (let i = 0; i < 12; i++) {
             const ray = document.createElement("div");
